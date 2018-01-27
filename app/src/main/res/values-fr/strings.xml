@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sign_in">Se connecter</string>
+    <string name="password">Mot de passe</string>
+
+    <string name="login_successful">Connexion réussie !</string>
+    <string name="login_failed">Identifiants invalides</string>
+    <string name="login_invalid_email">Email invalide</string>
+    <string name="login_invalid_password">Mot de passe invalide. 6 caractères minimums sont requis</string>
+</resources>
