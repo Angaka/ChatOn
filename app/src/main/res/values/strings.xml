@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ChatOn</string>
     <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
 
@@ -8,4 +9,7 @@
     <string name="login_failed">Failed !</string>
     <string name="login_invalid_email">Invalid email</string>
     <string name="login_invalid_password">Invalid password. Minimum length is 6 characters</string>
+    <string name="not_registered_sign_up">Not registered ? <b>Sign up</b></string>
+    <string name="submit">Submit</string>
+    <string name="close">Close</string>
 </resources>

@@ -17,4 +17,8 @@ class MainPresenter(mainView: MainView) {
 
         }
     }
+
+    fun loadChat(chatId: String) {
+        mFirebaseDb.child("channels").child(chatId)
+    }
 }

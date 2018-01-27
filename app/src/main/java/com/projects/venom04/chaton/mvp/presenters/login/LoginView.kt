@@ -7,4 +7,5 @@ import com.projects.venom04.chaton.mvp.presenters.BaseView
  */
 interface LoginView : BaseView {
     fun onSuccessfulConnection()
+    fun onSuccessfulRegistration()
 }

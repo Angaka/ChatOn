@@ -30,4 +30,21 @@ class LoginPresenter(loginView: LoginView) {
             }
         }
     }
+
+    fun signUp(email: String, password: String) {
+        if (!InputUtils.validateEmail(email))
+            mLoginView.showMessage(R.string.login_invalid_email)
+        else if (!InputUtils.validatePassword(password))
+            mLoginView.showMessage(R.string.login_invalid_password)
+        else {
+            mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult> ->
+                if (task.isSuccessful) {
+                    mLoginView.onSuccessfulRegistration()
+                    mLoginView.showMessage(R.string.login_successful)
+                } else {
+                    mLoginView.showMessage(R.string.login_failed)
+                }
+            }
+        }
+    }
 }
