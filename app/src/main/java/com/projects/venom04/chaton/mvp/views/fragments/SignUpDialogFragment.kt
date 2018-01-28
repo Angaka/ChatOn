@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputLayout
 import android.view.View
 import android.widget.Button
 import com.projects.venom04.chaton.R
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.find
 
 
@@ -47,10 +48,12 @@ class SignUpDialogFragment : DialogFragment(), View.OnClickListener {
         mBtnClose = view.find(R.id.button_close)
         mBtnClose.setOnClickListener(this)
 
-        val dialog = AlertDialog.Builder(activity, R.style.AppTheme_Dialog)
+        return AlertDialog.Builder(activity, R.style.AppTheme_Dialog)
                 .setView(view)
                 .create()
-        return dialog
+                .apply {
+                    setCanceledOnTouchOutside(false)
+                }
     }
 
     override fun onResume() {

@@ -3,4 +3,6 @@
     <dimen name="default_padding">15dp</dimen>
     <dimen name="dialog_width">350dp</dimen>
     <dimen name="dialog_height">450dp</dimen>
+    <dimen name="default_radius">30dp</dimen>
+    <dimen name="title_textsize">28sp</dimen>
 </resources>
