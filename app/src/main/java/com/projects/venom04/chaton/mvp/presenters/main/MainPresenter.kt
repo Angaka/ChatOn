@@ -9,16 +9,16 @@ import com.google.firebase.database.FirebaseDatabase
  */
 class MainPresenter(mainView: MainView) {
 
+    private var mMainView: MainView = mainView
     private var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private var mFirebaseDb: DatabaseReference = FirebaseDatabase.getInstance().reference
 
-    fun loadChannels() {
-        mFirebaseDb.child("channels").run {
-
-        }
+    fun loadChats() {
+        val query = mFirebaseDb.orderByKey()
+        mMainView.getAllChats(query)
     }
 
     fun loadChat(chatId: String) {
-        mFirebaseDb.child("channels").child(chatId)
+        mFirebaseDb.child(chatId)
     }
 }

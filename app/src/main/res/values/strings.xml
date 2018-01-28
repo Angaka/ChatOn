@@ -3,6 +3,7 @@
     <string name="sign_in"><u>Sign In</u></string>
     <string name="sign_up"><u>Sign Up</u></string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
     <string name="email">Email</string>
 
     <string name="login_successful">Successful !</string>
@@ -10,6 +11,7 @@
     <string name="login_invalid_email">Invalid email</string>
     <string name="login_invalid_password">Invalid password. Minimum length is 6 characters</string>
     <string name="not_registered_sign_up">Not registered ? <b>Sign up</b></string>
+    <string name="passwords_not_matching">Passwords don\'t match together</string>
     <string name="submit">Submit</string>
     <string name="close">Close</string>
 </resources>

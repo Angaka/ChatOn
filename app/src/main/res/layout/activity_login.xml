@@ -63,7 +63,9 @@
             android:layout_height="45dp"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark">
+            <requestFocus/>
+        </android.support.design.widget.TextInputEditText>
     </android.support.design.widget.TextInputLayout>
 
     <TextView

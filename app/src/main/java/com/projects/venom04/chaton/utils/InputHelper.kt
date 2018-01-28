@@ -3,7 +3,7 @@ package com.projects.venom04.chaton.utils
 /**
  * Created by Venom on 27/01/2018.
  */
-class InputUtils {
+class InputHelper {
     companion object {
         fun validateEmail(email: String) : Boolean {
             if (email.trim().isEmpty())
@@ -17,6 +17,10 @@ class InputUtils {
             if (password.length < 6)
                 return false
             return true
+        }
+
+        fun comparePassword(password: String, recheckPassword: String) : Boolean {
+            return password.equals(recheckPassword)
         }
     }
 }

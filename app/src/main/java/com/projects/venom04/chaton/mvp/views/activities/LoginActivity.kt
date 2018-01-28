@@ -51,8 +51,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, SignUpDialogFra
         longToast(message)
     }
 
-    override fun onSignUp(email: String, password: String) {
-        mLoginPresenter.signUp(email, password)
+    override fun onSignUp(email: String, password: String, recheckPassword: String) {
+        mLoginPresenter.signUp(email, password, recheckPassword)
     }
 
     override fun onClick(v: View?) {

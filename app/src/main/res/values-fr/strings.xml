@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="sign_in">Se connecter</string>
+    <string name="sign_in">Connexion</string>
     <string name="sign_up">Inscription</string>
     <string name="password">Mot de passe</string>
+    <string name="confirm_password">Confirmation du mot de passe</string>
 
     <string name="login_successful">Connexion réussie !</string>
     <string name="login_failed">Identifiants invalides</string>
     <string name="login_invalid_email">Email invalide</string>
     <string name="login_invalid_password">Mot de passe invalide. 6 caractères minimums sont requis</string>
     <string name="not_registered_sign_up">Pas encore inscrit ? <b>Inscrivez-vous</b></string>
+    <string name="passwords_not_matching">Les mots de passe ne correspondent pas !</string>
     <string name="submit">Soumettre</string>
     <string name="close">Fermer</string>
 </resources>

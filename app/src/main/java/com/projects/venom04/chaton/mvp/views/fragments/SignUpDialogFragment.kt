@@ -9,7 +9,6 @@ import android.support.design.widget.TextInputLayout
 import android.view.View
 import android.widget.Button
 import com.projects.venom04.chaton.R
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.find
 
 
@@ -21,13 +20,14 @@ class SignUpDialogFragment : DialogFragment(), View.OnClickListener {
 
     private lateinit var mInputEmail : TextInputLayout
     private lateinit var mInputPassword : TextInputLayout
+    private lateinit var mInputRecheckPassword : TextInputLayout
     private lateinit var mBtnSubmit : Button
     private lateinit var mBtnClose : Button
 
     private var listener : SignUpDialogListener? = null
 
     interface SignUpDialogListener {
-        fun onSignUp(email: String, password: String)
+        fun onSignUp(email: String, password: String, recheckPassword: String)
     }
 
     override fun onAttach(context: Context?) {
@@ -42,6 +42,7 @@ class SignUpDialogFragment : DialogFragment(), View.OnClickListener {
 
         mInputEmail = view.find(R.id.textInputLayout_email)
         mInputPassword = view.find(R.id.textInputLayout_password)
+        mInputRecheckPassword = view.find(R.id.textInputLayout_recheck_password)
 
         mBtnSubmit = view.find(R.id.button_submit)
         mBtnSubmit.setOnClickListener(this)
@@ -69,8 +70,9 @@ class SignUpDialogFragment : DialogFragment(), View.OnClickListener {
             R.id.button_submit -> {
                 val email = mInputEmail.editText?.text.toString()
                 val password = mInputPassword.editText?.text.toString()
+                val recheckPassword = mInputRecheckPassword.editText?.text.toString()
 
-                listener?.onSignUp(email, password)
+                listener?.onSignUp(email, password, recheckPassword)
                 dismiss()
             }
             R.id.button_close -> {
