@@ -16,4 +16,5 @@
     <string name="add_a_new_conversation">Nouvelle conversation</string>
     <string name="add_name">Ajouter un nom</string>
     <string name="chat_added">Conversation ajoutée</string>
+    <string name="required_field">Champ requis</string>
 </resources>

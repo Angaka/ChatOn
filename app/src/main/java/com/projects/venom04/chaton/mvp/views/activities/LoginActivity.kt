@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.projects.venom04.chaton.R
+import com.projects.venom04.chaton.extensions.setAsRequired
 import com.projects.venom04.chaton.mvp.presenters.login.LoginPresenter
 import com.projects.venom04.chaton.mvp.presenters.login.LoginView
 import com.projects.venom04.chaton.mvp.views.fragments.SignUpDialogFragment

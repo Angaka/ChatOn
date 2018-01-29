@@ -2,7 +2,6 @@ package com.projects.venom04.chaton.mvp.views.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log.e
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -34,6 +33,11 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
         floatingButton_addChat.setOnClickListener(this)
     }
 
+    override fun onStart() {
+        super.onStart()
+        mAdapter.startListening()
+    }
+
     override fun onStop() {
         super.onStop()
         mAdapter.stopListening()
@@ -45,10 +49,8 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
                 .setQuery(query, Chat::class.java)
                 .build()
 
-        e(TAG, "getAlLChats " + query.toString())
         mAdapter = object : FirebaseListAdapter<Chat>(options) {
             override fun populateView(v: View?, chat: Chat?, position: Int) {
-                e(TAG, chat.toString())
                 val ivIcon = v?.find<ImageView>(R.id.imageView_icon)
                 val tvTitle = v?.find<TextView>(R.id.textView_title)
                 val tvLastMessage = v?.find<TextView>(R.id.textView_lastMessage)
@@ -63,7 +65,6 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
             }
         }
         listView_chats.adapter = mAdapter
-        mAdapter.startListening()
     }
 
     override fun onAddingChat(name: String) {

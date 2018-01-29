@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
@@ -11,7 +10,7 @@
         android:id="@+id/textInputLayout_recheck_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
@@ -24,7 +23,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/confirm_password"
             android:inputType="textPassword"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/input_text_size" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -42,8 +42,10 @@
             android:layout_height="wrap_content"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:textColor="@color/colorPrimaryDark">
-            <requestFocus/>
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/input_text_size">
+
+            <requestFocus />
         </android.support.design.widget.TextInputEditText>
     </android.support.design.widget.TextInputLayout>
 
@@ -51,7 +53,7 @@
         android:id="@+id/textInputLayout_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
@@ -64,14 +66,15 @@
             android:layout_height="wrap_content"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/input_text_size" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/button_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/button_background"
         android:text="@string/submit"
         android:textAllCaps="true"
@@ -104,10 +107,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/colorPrimary"
         android:fontFamily="sans-serif-medium"
-        android:textSize="@dimen/title_textsize"
         android:text="@string/sign_up"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/title_textsize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

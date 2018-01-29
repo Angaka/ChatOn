@@ -9,6 +9,8 @@ import android.support.design.widget.TextInputLayout
 import android.view.View
 import android.widget.Button
 import com.projects.venom04.chaton.R
+import com.projects.venom04.chaton.extensions.setAsRequired
+import com.projects.venom04.chaton.utils.InputHelper
 import org.jetbrains.anko.find
 
 
@@ -65,8 +67,12 @@ class AddChatDialogFragment : DialogFragment(), View.OnClickListener {
             R.id.button_submit -> {
                 val name = mInputName.editText?.text.toString()
 
-                listener?.onAddingChat(name)
-                dismiss()
+                if (!name.trim().isEmpty()) {
+                    listener?.onAddingChat(name)
+                    dismiss()
+                } else {
+                    mInputName.editText?.setAsRequired()
+                }
             }
             R.id.button_close -> {
                 dismiss()

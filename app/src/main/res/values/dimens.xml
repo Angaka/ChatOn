@@ -5,4 +5,5 @@
     <dimen name="dialog_height">500dp</dimen>
     <dimen name="default_radius">30dp</dimen>
     <dimen name="title_textsize">20sp</dimen>
+    <dimen name="input_text_size">14sp</dimen>
 </resources>
