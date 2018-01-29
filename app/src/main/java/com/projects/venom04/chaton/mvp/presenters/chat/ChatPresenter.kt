@@ -22,16 +22,16 @@ class ChatPresenter(chatView: ChatView, childId: String) {
                 .reference
                 .child("chats")
                 .child(childId)
+                .child("chatMessageList")
     }
 
     fun loadChatMessages() {
-        val query = mFirebaseDb.child("chatMessageList").orderByKey()
+        val query = mFirebaseDb.orderByKey()
         mChatView.loadChat(query)
     }
 
     fun sendMessage(message: String) {
-        mFirebaseDb.child("chatMessageList")
-                .push()
+        mFirebaseDb.push()
                 .setValue(ChatMessage(mFirebaseAuth.currentUser?.displayName!!, message))
                 .addOnCompleteListener { task: Task<Void> ->
                 }

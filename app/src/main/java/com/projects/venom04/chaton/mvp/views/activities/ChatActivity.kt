@@ -2,6 +2,7 @@ package com.projects.venom04.chaton.mvp.views.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log.e
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,8 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+        recyclerView_messages.layoutManager = LinearLayoutManager(this)
 
         val childId = intent.extras.getString(Constants.CHILD_ID)
         mChatPresenter = ChatPresenter(this, childId)

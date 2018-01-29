@@ -2,7 +2,6 @@ package com.projects.venom04.chaton.mvp.views.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
@@ -16,7 +15,6 @@ import com.projects.venom04.chaton.mvp.presenters.main.MainPresenter
 import com.projects.venom04.chaton.mvp.presenters.main.MainView
 import com.projects.venom04.chaton.mvp.views.fragments.AddChatDialogFragment
 import com.projects.venom04.chaton.utils.Constants
-import com.projects.venom04.chaton.utils.DateHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.intentFor
@@ -68,6 +66,7 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
 //                    tvSendAt?.text = lastMessage.sendAt.let { DateHelper.longToDate(it, "dd/MM/yyyy") }
                 }
             }
+
         }
         listView_chats.adapter = mAdapter
         listView_chats.onItemClickListener = this
