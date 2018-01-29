@@ -9,7 +9,6 @@
         android:id="@+id/textInputLayout_message"
         android:layout_width="324dp"
         android:layout_height="wrap_content"
-        android:background="back"
         android:textColorHint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_send_message"
@@ -24,8 +23,8 @@
             android:textSize="@dimen/input_text_size" />
     </android.support.design.widget.TextInputLayout>
 
-    <ListView
-        android:id="@+id/listView_messages"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_messages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/button_send_message"

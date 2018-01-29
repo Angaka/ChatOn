@@ -3,6 +3,7 @@ package com.projects.venom04.chaton.mvp.presenters.login
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.projects.venom04.chaton.R
 import com.projects.venom04.chaton.utils.InputHelper
 
@@ -12,7 +13,7 @@ import com.projects.venom04.chaton.utils.InputHelper
 class LoginPresenter(loginView: LoginView) {
 
     private var mLoginView: LoginView = loginView
-    private var mFirebaseAuth : FirebaseAuth = FirebaseAuth.getInstance()
+    private var mFirebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun signIn(email: String, password: String) {
         if (!InputHelper.validateEmail(email))
@@ -31,9 +32,11 @@ class LoginPresenter(loginView: LoginView) {
         }
     }
 
-    fun signUp(email: String, password: String, recheckPassword: String) {
+    fun signUp(email: String, username: String, password: String, recheckPassword: String) {
         if (!InputHelper.validateEmail(email))
             mLoginView.showMessage(R.string.login_invalid_email)
+        else if (username.trim().isEmpty())
+            mLoginView.showMessage(R.string.login_invalid_username)
         else if (!InputHelper.validatePassword(password))
             mLoginView.showMessage(R.string.login_invalid_password)
         else if (!InputHelper.comparePassword(password, recheckPassword))
@@ -42,6 +45,10 @@ class LoginPresenter(loginView: LoginView) {
             mFirebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult> ->
                 if (task.isSuccessful) {
                     mLoginView.onSuccessfulRegistration()
+                    val userProfileChangeRequest = UserProfileChangeRequest.Builder()
+                            .setDisplayName(username)
+                            .build()
+                    mFirebaseAuth.currentUser?.updateProfile(userProfileChangeRequest)
                     mLoginView.showMessage(R.string.login_successful)
                 } else {
                     mLoginView.showMessage(R.string.login_failed)

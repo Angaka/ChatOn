@@ -5,10 +5,12 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="email">Email</string>
+    <string name="username">Username</string>
 
     <string name="login_successful">Successful !</string>
     <string name="login_failed">Failed !</string>
     <string name="login_invalid_email">Invalid email</string>
+    <string name="login_invalid_username">Please enter an username</string>
     <string name="login_invalid_password">Invalid password. Minimum length is 6 characters</string>
     <string name="not_registered_sign_up">Not registered ? <b>Sign up</b></string>
     <string name="passwords_not_matching">Passwords don\'t match together</string>

@@ -19,6 +19,7 @@ import org.jetbrains.anko.find
 class SignUpDialogFragment : DialogFragment(), View.OnClickListener {
 
     private lateinit var mInputEmail : TextInputLayout
+    private lateinit var mInputUsername : TextInputLayout
     private lateinit var mInputPassword : TextInputLayout
     private lateinit var mInputRecheckPassword : TextInputLayout
     private lateinit var mBtnSubmit : Button
@@ -27,7 +28,7 @@ class SignUpDialogFragment : DialogFragment(), View.OnClickListener {
     private var listener : SignUpDialogListener? = null
 
     interface SignUpDialogListener {
-        fun onSignUp(email: String, password: String, recheckPassword: String)
+        fun onSignUp(email: String, username: String, password: String, recheckPassword: String)
     }
 
     override fun onAttach(context: Context?) {
@@ -41,6 +42,7 @@ class SignUpDialogFragment : DialogFragment(), View.OnClickListener {
         val view = activity.layoutInflater.inflate(R.layout.fragment_dialog_signup, null)
 
         mInputEmail = view.find(R.id.textInputLayout_email)
+        mInputUsername = view.find(R.id.textInputLayout_username)
         mInputPassword = view.find(R.id.textInputLayout_password)
         mInputRecheckPassword = view.find(R.id.textInputLayout_recheck_password)
 
@@ -69,10 +71,11 @@ class SignUpDialogFragment : DialogFragment(), View.OnClickListener {
         when(v?.id) {
             R.id.button_submit -> {
                 val email = mInputEmail.editText?.text.toString()
+                val username = mInputUsername.editText?.text.toString()
                 val password = mInputPassword.editText?.text.toString()
                 val recheckPassword = mInputRecheckPassword.editText?.text.toString()
 
-                listener?.onSignUp(email, password, recheckPassword)
+                listener?.onSignUp(email, username, password, recheckPassword)
                 dismiss()
             }
             R.id.button_close -> {

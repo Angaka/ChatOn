@@ -63,9 +63,9 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
 
                 tvTitle?.text = chat?.name
                 if (chat!!.chatMessageList.isNotEmpty()) {
-                    val lastMessage = chat.chatMessageList.last()
-                    tvLastMessage?.text = lastMessage.message
-                    tvSendAt?.text = lastMessage.sendAt.let { DateHelper.longToDate(it, "dd/MM/yyyy") }
+//                    val lastMessage = chat.chatMessageList.last()
+//                    tvLastMessage?.text = lastMessage.message
+//                    tvSendAt?.text = lastMessage.sendAt.let { DateHelper.longToDate(it, "dd/MM/yyyy") }
                 }
             }
         }
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
     }
 
     override fun onItemClick(adapterView: AdapterView<*>?, v: View?, position: Int, p3: Long) {
-        val childId = mAdapter.getRef(position)
+        val childId = mAdapter.getRef(position).key
         startActivity(intentFor<ChatActivity>(Constants.CHILD_ID to childId).singleTop())
     }
 

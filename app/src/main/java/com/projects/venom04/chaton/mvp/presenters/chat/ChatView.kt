@@ -8,5 +8,4 @@ import com.projects.venom04.chaton.mvp.presenters.BaseView
  */
 interface ChatView : BaseView {
     fun loadChat(query: Query)
-    fun sendMessage(message: String)
 }
