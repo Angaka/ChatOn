@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="65dp">
 
     <TextView
         android:id="@+id/textView_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-medium"
         android:text="title"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
@@ -32,19 +33,21 @@
         android:id="@+id/textView_lastMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-light"
         android:text="last message"
         android:textColor="@color/colorPrimaryLight"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
-        app:layout_constraintStart_toEndOf="@+id/imageView_icon"
-        app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_title"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="56dp" />
 
     <TextView
         android:id="@+id/textView_sendAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
         android:text="send at"
         android:textColor="@color/colorPrimaryLight"
         android:textSize="12sp"

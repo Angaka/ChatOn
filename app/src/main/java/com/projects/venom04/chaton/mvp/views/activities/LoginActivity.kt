@@ -46,6 +46,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, SignUpDialogFra
     }
 
     override fun onSuccessfulRegistration() {
+        startActivity<MainActivity>()
     }
 
     override fun showMessage(message: Int) {

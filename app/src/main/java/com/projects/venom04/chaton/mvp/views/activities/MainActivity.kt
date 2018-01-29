@@ -2,7 +2,9 @@ package com.projects.venom04.chaton.mvp.views.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import com.firebase.ui.database.FirebaseListAdapter
@@ -13,12 +15,15 @@ import com.projects.venom04.chaton.mvp.models.Chat
 import com.projects.venom04.chaton.mvp.presenters.main.MainPresenter
 import com.projects.venom04.chaton.mvp.presenters.main.MainView
 import com.projects.venom04.chaton.mvp.views.fragments.AddChatDialogFragment
+import com.projects.venom04.chaton.utils.Constants
 import com.projects.venom04.chaton.utils.DateHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.longToast
+import org.jetbrains.anko.singleTop
 
-class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddChatDialogFragment.AddChatDialogListener {
+class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddChatDialogFragment.AddChatDialogListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private lateinit var mMainPresenter: MainPresenter
 
@@ -65,6 +70,8 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
             }
         }
         listView_chats.adapter = mAdapter
+        listView_chats.onItemClickListener = this
+        listView_chats.onItemLongClickListener = this
     }
 
     override fun onAddingChat(name: String) {
@@ -86,6 +93,15 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
                 openAddChatDialog()
             }
         }
+    }
+
+    override fun onItemClick(adapterView: AdapterView<*>?, v: View?, position: Int, p3: Long) {
+        val childId = mAdapter.getRef(position)
+        startActivity(intentFor<ChatActivity>(Constants.CHILD_ID to childId).singleTop())
+    }
+
+    override fun onItemLongClick(adapterView: AdapterView<*>?, v: View?, position: Int, p3: Long): Boolean {
+        return true
     }
 
     companion object {
