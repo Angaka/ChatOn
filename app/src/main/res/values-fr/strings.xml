@@ -13,4 +13,7 @@
     <string name="passwords_not_matching">Les mots de passe ne correspondent pas !</string>
     <string name="submit">Soumettre</string>
     <string name="close">Fermer</string>
+    <string name="add_a_new_conversation">Nouvelle conversation</string>
+    <string name="add_name">Ajouter un nom</string>
+    <string name="chat_added">Conversation ajoutée</string>
 </resources>

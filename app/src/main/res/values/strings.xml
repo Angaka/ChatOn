@@ -14,4 +14,7 @@
     <string name="passwords_not_matching">Passwords don\'t match together</string>
     <string name="submit">Submit</string>
     <string name="close">Close</string>
+    <string name="add_a_new_conversation">Add a new conversation</string>
+    <string name="add_name">Add name</string>
+    <string name="chat_added">Chat added !</string>
 </resources>
