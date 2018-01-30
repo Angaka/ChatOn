@@ -20,4 +20,13 @@
     <string name="chat_added">Conversation ajoutée</string>
     <string name="required_field">Champ requis</string>
     <string name="type_text_here">Taper message</string>
+
+    <!-- Menu -->
+    <string name="settings">Paramètres</string>
+    <string name="logout">Se déconnecter</string>
+
+    <!-- Profile -->
+    <string name="add_a_cover_photo">Ajouter une image de couverture</string>
+    <string name="update_informations">Mettre à jour les informations</string>
+    <string name="my_profile">Mon profil</string>
 </resources>

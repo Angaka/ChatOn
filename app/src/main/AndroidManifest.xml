@@ -13,8 +13,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".mvp.views.activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,13 +23,15 @@
         </activity>
         <activity
             android:name=".mvp.views.activities.MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.views.activities.ChatActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".mvp.views.activities.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/my_profile"/>
     </application>
 
 </manifest>

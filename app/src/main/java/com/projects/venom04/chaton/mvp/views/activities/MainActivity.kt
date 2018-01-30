@@ -2,6 +2,8 @@ package com.projects.venom04.chaton.mvp.views.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
@@ -18,10 +20,7 @@ import com.projects.venom04.chaton.mvp.views.fragments.AddChatDialogFragment
 import com.projects.venom04.chaton.utils.Constants
 import com.projects.venom04.chaton.utils.DateHelper
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.find
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.longToast
-import org.jetbrains.anko.singleTop
+import org.jetbrains.anko.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddChatDialogFragment.AddChatDialogListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
@@ -47,6 +46,24 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
     override fun onStop() {
         super.onStop()
         mAdapter.stopListening()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.settings -> {
+                startActivity<ProfileActivity>()
+            }
+            R.id.logout -> {
+                mMainPresenter.logout()
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
     }
 
     override fun getAllChats(query: Query) {

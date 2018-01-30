@@ -33,8 +33,11 @@ class MainPresenter(mainView: MainView) {
     }
 
     fun addNewChat(name: String) {
-        mFirebaseDb.push()
-                .setValue(Chat(name, "icon"))
+        mFirebaseDb.push().setValue(Chat(name, "icon"))
         mMainView.showMessage(R.string.chat_added)
+    }
+
+    fun logout() {
+        mFirebaseAuth.signOut()
     }
 }
