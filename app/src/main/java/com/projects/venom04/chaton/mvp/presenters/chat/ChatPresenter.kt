@@ -30,6 +30,6 @@ class ChatPresenter(chatView: ChatView, childId: String) {
     }
 
     fun sendMessage(message: String) {
-        mFirebaseDb.push().setValue(ChatMessage(mFirebaseAuth.currentUser?.email!!, mFirebaseAuth.currentUser?.displayName!!, message))
+        mFirebaseDb.push().setValue(ChatMessage(mFirebaseAuth.currentUser?.uid!!, mFirebaseAuth.currentUser?.displayName!!, message))
     }
 }

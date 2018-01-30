@@ -18,7 +18,7 @@ class ChatHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val tvMessage = itemView.find<TextView>(R.id.textView_message)
             val tvSendAt = itemView.find<TextView>(R.id.textView_sendAt)
 
-            if (!FirebaseAuth.getInstance().currentUser?.email.equals(chatMessage.email)) {
+            if (!FirebaseAuth.getInstance().currentUser?.uid.equals(chatMessage.userId)) {
                 val tvUser = itemView.find<TextView>(R.id.textView_user)
                 tvUser.text = chatMessage.user
             }

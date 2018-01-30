@@ -8,4 +8,5 @@ import com.projects.venom04.chaton.mvp.presenters.BaseView
  */
 interface ProfileView: BaseView {
     fun loadUserInfos(currentUser: FirebaseUser?)
+//    fun showRequiredFields()
 }

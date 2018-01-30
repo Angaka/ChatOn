@@ -102,8 +102,8 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
 
             override fun getItemViewType(position: Int): Int {
                 val chatMessage: ChatMessage = getItem(position)
-                when (chatMessage.user) {
-                    FirebaseAuth.getInstance().currentUser?.displayName -> {
+                when (chatMessage.userId) {
+                    FirebaseAuth.getInstance().currentUser?.uid -> {
                         return CURRENT_USER
                     }
                 }
