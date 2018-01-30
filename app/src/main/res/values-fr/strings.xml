@@ -19,4 +19,5 @@
     <string name="add_name">Ajouter un nom</string>
     <string name="chat_added">Conversation ajoutée</string>
     <string name="required_field">Champ requis</string>
+    <string name="type_text_here">Taper message</string>
 </resources>

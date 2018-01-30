@@ -20,4 +20,5 @@
     <string name="add_name">Add name</string>
     <string name="chat_added">Chat added !</string>
     <string name="required_field">This field is required</string>
+    <string name="type_text_here">Type text here</string>
 </resources>

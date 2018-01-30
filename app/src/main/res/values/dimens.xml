@@ -4,6 +4,7 @@
     <dimen name="dialog_width">350dp</dimen>
     <dimen name="dialog_height">500dp</dimen>
     <dimen name="default_radius">30dp</dimen>
+    <dimen name="chat_radius">20dp</dimen>
     <dimen name="title_textsize">20sp</dimen>
     <dimen name="input_text_size">14sp</dimen>
     <dimen name="send_at_text_size">12sp</dimen>

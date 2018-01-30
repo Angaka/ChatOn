@@ -3,6 +3,7 @@ package com.projects.venom04.chaton.mvp.views.activities
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log.e
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,9 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        recyclerView_messages.layoutManager = LinearLayoutManager(this)
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.stackFromEnd = true
+        recyclerView_messages.layoutManager = linearLayoutManager
 
         val childId = intent.extras.getString(Constants.CHILD_ID)
         mChatPresenter = ChatPresenter(this, childId)
@@ -88,6 +91,11 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
             }
         }
         recyclerView_messages.adapter = mAdapter
+        recyclerView_messages.adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                recyclerView_messages.smoothScrollToPosition(mAdapter.itemCount)
+            }
+        })
     }
 
     override fun showMessage(message: Int) {
@@ -98,8 +106,11 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
         when (v?.id) {
             R.id.button_send_message -> {
                 val messageToSend = textInputLayout_message.editText?.text.toString()
-                if (messageToSend.trim().isNotEmpty())
+                if (messageToSend.trim().isNotEmpty()) {
                     mChatPresenter.sendMessage(messageToSend)
+                    textInputLayout_message.editText!!.text.clear()
+                    textInputLayout_message.editText?.clearFocus()
+                }
             }
         }
     }

@@ -7,9 +7,4 @@
         android:radius="@dimen/default_radius"/>
     <solid
         android:color="@color/colorAccent"/>
-    <padding
-        android:top="10dp"
-        android:bottom="10dp"
-        android:left="10dp"
-        android:right="10dp"/>
 </shape>
