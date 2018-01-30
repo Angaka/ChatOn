@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log.e
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.firebase.ui.database.FirebaseRecyclerAdapter
@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.Query
 import com.projects.venom04.chaton.R
 import com.projects.venom04.chaton.extensions.inflate
+import com.projects.venom04.chaton.mvp.models.Chat
 import com.projects.venom04.chaton.mvp.models.ChatMessage
 import com.projects.venom04.chaton.mvp.presenters.chat.ChatPresenter
 import com.projects.venom04.chaton.mvp.presenters.chat.ChatView
@@ -34,6 +35,11 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        val chat = intent.extras.get(Constants.CHAT) as Chat
+        supportActionBar?.title = chat.name
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.stackFromEnd = true
         recyclerView_messages.layoutManager = linearLayoutManager
@@ -53,6 +59,15 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
     override fun onStop() {
         super.onStop()
         mAdapter.stopListening()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun loadChat(query: Query) {
@@ -76,7 +91,6 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
             }
 
             override fun onBindViewHolder(holder: ChatHolder, position: Int, chatMessage: ChatMessage) {
-                e(TAG, chatMessage.toString())
                 holder.bind(chatMessage)
             }
 
@@ -109,7 +123,7 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
                 if (messageToSend.trim().isNotEmpty()) {
                     mChatPresenter.sendMessage(messageToSend)
                     textInputLayout_message.editText!!.text.clear()
-                    textInputLayout_message.editText?.clearFocus()
+                    textInputLayout_message.clearFocus()
                 }
             }
         }

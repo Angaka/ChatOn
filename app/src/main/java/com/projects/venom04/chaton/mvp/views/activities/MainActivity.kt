@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.firebase.ui.database.FirebaseListAdapter
 import com.firebase.ui.database.FirebaseListOptions
@@ -15,11 +16,13 @@ import com.projects.venom04.chaton.mvp.presenters.main.MainPresenter
 import com.projects.venom04.chaton.mvp.presenters.main.MainView
 import com.projects.venom04.chaton.mvp.views.fragments.AddChatDialogFragment
 import com.projects.venom04.chaton.utils.Constants
+import com.projects.venom04.chaton.utils.DateHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.singleTop
+import java.util.*
 
 class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddChatDialogFragment.AddChatDialogListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
@@ -61,9 +64,21 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
 
                 tvTitle?.text = chat?.name
                 if (chat!!.chatMessageList.isNotEmpty()) {
-//                    val lastMessage = chat.chatMessageList.last()
-//                    tvLastMessage?.text = lastMessage.message
-//                    tvSendAt?.text = lastMessage.sendAt.let { DateHelper.longToDate(it, "dd/MM/yyyy") }
+                    tvLastMessage?.visibility = TextView.VISIBLE
+                    tvSendAt?.visibility = TextView.VISIBLE
+
+                    val lastKey: String = chat.chatMessageList.keys.max()!!
+                    val lastMessage = chat.chatMessageList[lastKey]
+                    tvLastMessage?.text = lastMessage!!.message
+
+                    var lastSendAt = DateHelper.longToDate(lastMessage.sendAt, "dd/MM/yyyy")
+                    val todayDate = DateHelper.longToDate(Date().time, "dd/MM/yyyy")
+                    if (lastSendAt.equals(todayDate))
+                        lastSendAt = DateHelper.longToDate(lastMessage.sendAt, "hh:mm")
+                    tvSendAt?.text = lastSendAt
+                } else {
+                    tvLastMessage?.visibility = TextView.GONE
+                    tvSendAt?.visibility = TextView.GONE
                 }
             }
 
@@ -95,8 +110,9 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
     }
 
     override fun onItemClick(adapterView: AdapterView<*>?, v: View?, position: Int, p3: Long) {
+        val chat: Chat = mAdapter.getItem(position)
         val childId = mAdapter.getRef(position).key
-        startActivity(intentFor<ChatActivity>(Constants.CHILD_ID to childId).singleTop())
+        startActivity(intentFor<ChatActivity>(Constants.CHAT to chat, Constants.CHILD_ID to childId).singleTop())
     }
 
     override fun onItemLongClick(adapterView: AdapterView<*>?, v: View?, position: Int, p3: Long): Boolean {

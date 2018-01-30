@@ -22,3 +22,7 @@
 
 -keepattributes Signature
 -keepattributes *Annotation*
+
+-keepattributes *Annotation*, InnerClasses
+-dontnote kotlinx.serialization.SerializationKt
+-keep,includedescriptorclasses class com.yourcompany.yourpackage.**$$serializer { *; } # <-- change package name to your app's

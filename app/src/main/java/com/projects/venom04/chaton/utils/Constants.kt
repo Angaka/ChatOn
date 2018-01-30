@@ -5,6 +5,7 @@ package com.projects.venom04.chaton.utils
  */
 class Constants {
     companion object {
+        val CHAT = "chat"
         val CHILD_ID = "childId"
     }
 }

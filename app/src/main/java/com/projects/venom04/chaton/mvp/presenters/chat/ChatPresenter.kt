@@ -1,6 +1,5 @@
 package com.projects.venom04.chaton.mvp.presenters.chat
 
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -31,9 +30,6 @@ class ChatPresenter(chatView: ChatView, childId: String) {
     }
 
     fun sendMessage(message: String) {
-        mFirebaseDb.push()
-                .setValue(ChatMessage(mFirebaseAuth.currentUser?.displayName!!, message))
-                .addOnCompleteListener { task: Task<Void> ->
-                }
+        mFirebaseDb.push().setValue(ChatMessage(mFirebaseAuth.currentUser?.email!!, mFirebaseAuth.currentUser?.displayName!!, message))
     }
 }

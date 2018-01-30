@@ -1,8 +1,11 @@
 package com.projects.venom04.chaton.mvp.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 /**
  * Created by Venom on 28/01/2018.
  */
-class ChatMessage(var user: String = "", var message: String = "", var sendAt: Long = Date().time)
+@Parcelize
+data class ChatMessage(var email: String = "", var user: String = "", var message: String = "", var sendAt: Long = Date().time) : Parcelable
