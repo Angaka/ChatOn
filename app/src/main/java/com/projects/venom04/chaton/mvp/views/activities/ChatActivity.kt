@@ -1,9 +1,12 @@
 package com.projects.venom04.chaton.mvp.views.activities
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log.e
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,6 +25,7 @@ import com.projects.venom04.chaton.mvp.views.adapters.ChatHolder
 import com.projects.venom04.chaton.utils.Constants
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.jetbrains.anko.longToast
+import org.jetbrains.anko.startActivityForResult
 
 /**
  * Created by beau-oudong on 29/01/2018.
@@ -67,6 +71,13 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
             android.R.id.home -> {
                 finish()
             }
+            R.id.settings -> {
+                val childId = intent.extras.getString(Constants.CHILD_ID)
+//                val intent = Intent(this@ChatActivity, ChatSettingsActivity::class.java)
+//                intent.putExtra(Constants.CHILD_ID, childId)
+//                startActivityForResult(intent, DELETE_CHAT)
+                startActivityForResult<ChatSettingsActivity>(DELETE_CHAT, Constants.CHILD_ID to childId)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -74,6 +85,22 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_chat, menu)
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            DELETE_CHAT -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        val isDeleted = data?.extras?.getBoolean(IS_DELETED)
+                        e(TAG, "TEST " + isDeleted)
+                        if (isDeleted!!)
+                            finish()
+                    }
+                }
+            }
+        }
     }
 
     override fun loadChat(query: Query) {
@@ -125,11 +152,10 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.button_send_message -> {
-                val messageToSend = textInputLayout_message.editText?.text.toString()
+                val messageToSend = textInputEditText_message.text.toString()
                 if (messageToSend.trim().isNotEmpty()) {
                     mChatPresenter.sendMessage(messageToSend)
-                    textInputLayout_message.editText!!.text.clear()
-                    textInputLayout_message.clearFocus()
+                    textInputEditText_message.text.clear()
                 }
             }
         }
@@ -137,5 +163,7 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
 
     companion object {
         private val TAG = "ChatActivity"
+        val IS_DELETED = "is_deleted"
+        val DELETE_CHAT = 99
     }
 }

@@ -21,6 +21,9 @@
     <string name="required_field">Champ requis</string>
     <string name="type_text_here">Taper message</string>
 
+    <string name="name">Nom</string>
+    <string name="created_at">Créée le %s</string>
+
     <!-- Menu -->
     <string name="settings">Paramètres</string>
     <string name="logout">Se déconnecter</string>
@@ -29,4 +32,9 @@
     <string name="add_a_cover_photo">Ajouter une image de couverture</string>
     <string name="update_informations">Mettre à jour les informations</string>
     <string name="my_profile">Mon profil</string>
+
+    <!-- Chat settings -->
+    <string name="chat_settings_chat_deleted">Conversation supprimée</string>
+    <string name="chat_settings_delete_chat">Supprimer et quitter</string>
+    <string name="edit_cover">Editer la couverture</string>
 </resources>

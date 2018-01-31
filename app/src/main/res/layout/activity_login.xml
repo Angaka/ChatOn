@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/default_padding"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/default_padding">
 
     <Button
         android:id="@+id/button_connect"
@@ -39,10 +38,10 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/input_text_size"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/input_text_size" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -63,10 +62,11 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:hint="@string/email"
-            android:textSize="@dimen/input_text_size"
             android:inputType="textEmailAddress"
-            android:textColor="@color/colorPrimaryDark">
-            <requestFocus/>
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/input_text_size">
+
+            <requestFocus />
         </android.support.design.widget.TextInputEditText>
     </android.support.design.widget.TextInputLayout>
 

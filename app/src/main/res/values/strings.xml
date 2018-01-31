@@ -22,6 +22,10 @@
     <string name="required_field">This field is required</string>
     <string name="type_text_here">Type text here</string>
 
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="created_at">Created at %s</string>
+
     <!-- Menu -->
     <string name="settings">Settings</string>
     <string name="logout">Logout</string>
@@ -30,4 +34,9 @@
     <string name="add_a_cover_photo">Add a cover photo</string>
     <string name="update_informations">Update informations</string>
     <string name="my_profile">My profile</string>
+
+    <!-- Chat settings -->
+    <string name="chat_settings_chat_deleted">Chat deleted</string>
+    <string name="chat_settings_delete_chat">Delete and quit</string>
+    <string name="edit_cover">Edit cover</string>
 </resources>

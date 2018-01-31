@@ -7,9 +7,9 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_messages"
-        android:layout_width="match_parent"
-        android:layout_height="435dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -24,37 +24,31 @@
     <RelativeLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/chat_message_background"
         android:clipToPadding="false"
+        android:minHeight="55dp"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout_message"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="5dp"
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputEditText_message"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:focusable="false"
-            android:textColorHint="@color/colorPrimary">
-
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:gravity="top"
-                android:hint="@string/type_text_here"
-                android:inputType="text"
-                android:padding="5dp"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/colorPrimaryLight"
-                android:textSize="@dimen/input_text_size" />
-        </android.support.design.widget.TextInputLayout>
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:hint="@string/type_text_here"
+            android:inputType="textMultiLine"
+            android:padding="5dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimaryLight"
+            android:textSize="@dimen/input_text_size" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/button_send_message"

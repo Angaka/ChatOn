@@ -13,6 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -60,6 +61,8 @@ dependencies {
 
     // Progress view
     compile 'com.github.DamanSingh4321:ProProgressViews:v1.1'
+
+    compile 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

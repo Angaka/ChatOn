@@ -11,6 +11,8 @@ import kotlin.collections.HashMap
  * Created by Venom on 28/01/2018.
  */
 @Parcelize
-data class Chat(val name: String = "", val urlIcon: String = "", val chatMessageList: HashMap<String, ChatMessage> = HashMap(), val createdAt: Long = Date().time) : Parcelable {
-    //Expected a List while deserializing, but got a class java.util.HashMap
-}
+data class Chat(val name: String = "",
+                val description: String = "",
+                val urlIcon: String = "",
+                val chatMessageList: HashMap<String, ChatMessage> = HashMap(),
+                val createdAt: Long = Date().time) : Parcelable
