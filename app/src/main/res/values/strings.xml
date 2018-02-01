@@ -25,6 +25,7 @@
     <string name="name">Name</string>
     <string name="description">Description</string>
     <string name="created_at">Created at %s</string>
+    <string name="informations_updated">Informations updated</string>
 
     <!-- Menu -->
     <string name="settings">Settings</string>
@@ -39,4 +40,7 @@
     <string name="chat_settings_chat_deleted">Chat deleted</string>
     <string name="chat_settings_delete_chat">Delete and quit</string>
     <string name="edit_cover">Edit cover</string>
+    <string name="chat_name">Chat name</string>
+    <string name="add_a_picture">Add a picture</string>
+    <string name="chat_settings">Chat settings</string>
 </resources>

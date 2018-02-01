@@ -23,6 +23,7 @@
 
     <string name="name">Nom</string>
     <string name="created_at">Créée le %s</string>
+    <string name="informations_updated">Informations mises à jour</string>
 
     <!-- Menu -->
     <string name="settings">Paramètres</string>
@@ -37,4 +38,7 @@
     <string name="chat_settings_chat_deleted">Conversation supprimée</string>
     <string name="chat_settings_delete_chat">Supprimer et quitter</string>
     <string name="edit_cover">Editer la couverture</string>
+    <string name="chat_name">Nom de la conversation</string>
+    <string name="add_a_picture">Ajouter une photo</string>
+    <string name="chat_settings">Paramètres du chat</string>
 </resources>

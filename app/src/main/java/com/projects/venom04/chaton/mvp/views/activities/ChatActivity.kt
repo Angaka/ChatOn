@@ -2,11 +2,13 @@ package com.projects.venom04.chaton.mvp.views.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log.e
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,15 +16,19 @@ import android.view.ViewGroup
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
+import com.google.firebase.database.ValueEventListener
 import com.projects.venom04.chaton.R
 import com.projects.venom04.chaton.extensions.inflate
-import com.projects.venom04.chaton.mvp.models.Chat
 import com.projects.venom04.chaton.mvp.models.ChatMessage
 import com.projects.venom04.chaton.mvp.presenters.chat.ChatPresenter
 import com.projects.venom04.chaton.mvp.presenters.chat.ChatView
 import com.projects.venom04.chaton.mvp.views.adapters.ChatHolder
 import com.projects.venom04.chaton.utils.Constants
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivityForResult
@@ -30,7 +36,7 @@ import org.jetbrains.anko.startActivityForResult
 /**
  * Created by beau-oudong on 29/01/2018.
  */
-class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
+class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener, Target {
 
     private lateinit var mChatPresenter: ChatPresenter
 
@@ -40,8 +46,6 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        val chat = intent.extras.get(Constants.CHAT) as Chat
-        supportActionBar?.title = chat.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
@@ -51,6 +55,7 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
 
         val childId = intent.extras.getString(Constants.CHILD_ID)
         mChatPresenter = ChatPresenter(this, childId)
+        mChatPresenter.loadChat()
         mChatPresenter.loadChatMessages()
 
         button_send_message.setOnClickListener(this)
@@ -73,9 +78,6 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
             }
             R.id.settings -> {
                 val childId = intent.extras.getString(Constants.CHILD_ID)
-//                val intent = Intent(this@ChatActivity, ChatSettingsActivity::class.java)
-//                intent.putExtra(Constants.CHILD_ID, childId)
-//                startActivityForResult(intent, DELETE_CHAT)
                 startActivityForResult<ChatSettingsActivity>(DELETE_CHAT, Constants.CHILD_ID to childId)
             }
         }
@@ -94,7 +96,6 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
                         val isDeleted = data?.extras?.getBoolean(IS_DELETED)
-                        e(TAG, "TEST " + isDeleted)
                         if (isDeleted!!)
                             finish()
                     }
@@ -104,6 +105,29 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
     }
 
     override fun loadChat(query: Query) {
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(databaseError: DatabaseError?) {
+                longToast(databaseError!!.message)
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot?) {
+                if (dataSnapshot!!.exists()) {
+                    val name = dataSnapshot.child("name").value.toString()
+                    val coverUrl = dataSnapshot.child("coverUrl").value.toString()
+
+                    supportActionBar?.title = name
+
+                    if (coverUrl.trim().isNotEmpty()) {
+                        Picasso.with(this@ChatActivity)
+                                .load(coverUrl)
+                                .into(this@ChatActivity)
+                    }
+                }
+            }
+        })
+    }
+
+    override fun loadChatMessages(query: Query) {
         val options = FirebaseRecyclerOptions.Builder<ChatMessage>()
                 .setQuery(query, ChatMessage::class.java)
                 .build()
@@ -159,6 +183,16 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
                 }
             }
         }
+    }
+
+    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+    }
+
+    override fun onBitmapFailed(errorDrawable: Drawable?) {
+    }
+
+    override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+        constraintLayout_chat.background = BitmapDrawable(resources, bitmap)
     }
 
     companion object {

@@ -2,10 +2,8 @@ package com.projects.venom04.chaton.mvp.views.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,10 +12,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.projects.venom04.chaton.R
-import com.projects.venom04.chaton.mvp.presenters.chat_detail.ChatSettingsPresenter
-import com.projects.venom04.chaton.mvp.presenters.chat_detail.ChatSettingsView
+import com.projects.venom04.chaton.mvp.presenters.chat_settings.ChatSettingsPresenter
+import com.projects.venom04.chaton.mvp.presenters.chat_settings.ChatSettingsView
 import com.projects.venom04.chaton.utils.Constants
+import com.projects.venom04.chaton.utils.Constants.Companion.PICK_COVER
+import com.projects.venom04.chaton.utils.Constants.Companion.PICK_PICTURE
 import com.projects.venom04.chaton.utils.DateHelper
+import com.projects.venom04.chaton.utils.ImageHelper
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_chat_settings.*
 import org.jetbrains.anko.longToast
 
@@ -41,6 +43,8 @@ class ChatSettingsActivity : AppCompatActivity(), ChatSettingsView, View.OnClick
 
         mChatSettingsPresenter.loadChatInfos()
 
+        textView_chat_settings_picture.setOnClickListener(this)
+        button_update_informations.setOnClickListener(this)
         button_delete_and_quit.setOnClickListener(this)
     }
 
@@ -55,9 +59,7 @@ class ChatSettingsActivity : AppCompatActivity(), ChatSettingsView, View.OnClick
                 finish()
             }
             R.id.edit_cover -> {
-                val intent = Intent(Intent.ACTION_GET_CONTENT)
-                intent.type = "image/*"
-                startActivityForResult(Intent.createChooser(intent, "Select picture"), PICK_COVER)
+                startActivityForResult(Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), PICK_COVER)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -69,13 +71,20 @@ class ChatSettingsActivity : AppCompatActivity(), ChatSettingsView, View.OnClick
             PICK_COVER -> {
                 when (resultCode) {
                     Activity.RESULT_OK -> {
-                        try {
-                            val inputStream = contentResolver.openInputStream(data?.data)
-                            val bitmap = BitmapFactory.decodeStream(inputStream)
-                            imageView_chat_settings_cover.setImageBitmap(bitmap)
-                        } catch (exception: Exception) {
-                            Log.e(TAG, exception.message)
-                        }
+                        imageView_chat_settings_cover.setImageURI(data?.data)
+                        imageView_chat_settings_cover.buildDrawingCache()
+                        val coverBytes = ImageHelper.encodeImageToByteArray(imageView_chat_settings_cover.drawingCache)
+                        mChatSettingsPresenter.updateCover(coverBytes)
+                    }
+                }
+            }
+            PICK_PICTURE -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        imageView_chat_settings_picture.setImageURI(data?.data)
+                        imageView_chat_settings_picture.buildDrawingCache()
+                        val pictureBytes = ImageHelper.encodeImageToByteArray(imageView_chat_settings_picture.drawingCache)
+                        mChatSettingsPresenter.updatePicture(pictureBytes)
                     }
                 }
             }
@@ -98,19 +107,48 @@ class ChatSettingsActivity : AppCompatActivity(), ChatSettingsView, View.OnClick
                     val description = dataSnapshot.child("description").value.toString()
                     val createdAt = dataSnapshot.child("createdAt").value as Long
                     val formattedCreatedAt = getString(R.string.created_at)
+                    val coverUrl = dataSnapshot.child("coverUrl").value.toString()
+                    val pictureUrl = dataSnapshot.child("pictureUrl").value.toString()
 
                     collapsingToolbarLayout_chat_settings.title = name
                     collapsingToolbarLayout_chat_settings.subtitle = String.format(formattedCreatedAt, DateHelper.longToDate(createdAt, "dd/MM/yyyy hh:mm"))
 
-                    textInputEditText_chat_settings_name.setText(name)
-                    textInputEditText_chat_settings_desc.setText(description)
+                    textInputLayout_chat_settings_name.editText?.setText(name)
+                    textInputLayout_chat_settings_desc.editText?.setText(description)
+                    if (coverUrl.trim().isNotEmpty()) {
+                        Picasso.with(this@ChatSettingsActivity)
+                                .load(coverUrl)
+                                .fit()
+                                .centerCrop()
+                                .into(imageView_chat_settings_cover)
+                    }
+                    if (pictureUrl.trim().isNotEmpty()) {
+                        Picasso.with(this@ChatSettingsActivity)
+                                .load(pictureUrl)
+                                .fit()
+                                .centerCrop()
+                                .into(imageView_chat_settings_picture)
+                    }
                 }
             }
         })
     }
 
+    private fun updateInformations() {
+        val name = textInputLayout_chat_settings_name.editText?.text.toString()
+        val description = textInputLayout_chat_settings_desc.editText?.text.toString()
+
+        mChatSettingsPresenter.updateChatInfos(name, description)
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.textView_chat_settings_picture -> {
+                startActivityForResult(Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), PICK_PICTURE)
+            }
+            R.id.button_update_informations -> {
+                updateInformations()
+            }
             R.id.button_delete_and_quit -> {
                 mChatSettingsPresenter.deleteChat()
                 val resultIntent = Intent()
@@ -123,6 +161,5 @@ class ChatSettingsActivity : AppCompatActivity(), ChatSettingsView, View.OnClick
 
     companion object {
         private val TAG = "ChatSettings"
-        private val PICK_COVER = 0
     }
 }

@@ -21,15 +21,21 @@ class ChatPresenter(chatView: ChatView, childId: String) {
                 .reference
                 .child("chats")
                 .child(childId)
-                .child("chatMessageList")
     }
 
-    fun loadChatMessages() {
+    fun loadChat() {
         val query = mFirebaseDb.orderByKey()
         mChatView.loadChat(query)
     }
 
+    fun loadChatMessages() {
+        val query = mFirebaseDb.child("chatMessageList").orderByKey()
+        mChatView.loadChatMessages(query)
+    }
+
     fun sendMessage(message: String) {
-        mFirebaseDb.push().setValue(ChatMessage(mFirebaseAuth.currentUser?.uid!!, mFirebaseAuth.currentUser?.displayName!!, message))
+        mFirebaseDb.child("chatMessageList")
+                .push()
+                .setValue(ChatMessage(mFirebaseAuth.currentUser?.uid!!, mFirebaseAuth.currentUser?.displayName!!, message))
     }
 }

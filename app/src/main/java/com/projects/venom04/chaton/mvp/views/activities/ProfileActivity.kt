@@ -13,6 +13,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.projects.venom04.chaton.R
 import com.projects.venom04.chaton.mvp.presenters.profile.ProfilePresenter
 import com.projects.venom04.chaton.mvp.presenters.profile.ProfileView
+import com.projects.venom04.chaton.utils.Constants.Companion.PICK_COVER
+import com.projects.venom04.chaton.utils.Constants.Companion.PICK_PICTURE
 import kotlinx.android.synthetic.main.activity_profile.*
 import org.jetbrains.anko.backgroundDrawable
 import org.jetbrains.anko.toast
@@ -128,7 +130,5 @@ class ProfileActivity : AppCompatActivity(), ProfileView, View.OnClickListener {
 
     companion object {
         private val TAG = "ProfileActivity"
-        private val PICK_PICTURE = 0
-        private val PICK_COVER = 1
     }
 }

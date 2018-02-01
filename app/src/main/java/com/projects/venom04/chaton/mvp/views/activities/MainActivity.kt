@@ -6,8 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.firebase.ui.database.FirebaseListAdapter
 import com.firebase.ui.database.FirebaseListOptions
@@ -19,6 +17,8 @@ import com.projects.venom04.chaton.mvp.presenters.main.MainView
 import com.projects.venom04.chaton.mvp.views.fragments.AddChatDialogFragment
 import com.projects.venom04.chaton.utils.Constants
 import com.projects.venom04.chaton.utils.DateHelper
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
 import java.util.*
@@ -74,10 +74,18 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
 
         mAdapter = object : FirebaseListAdapter<Chat>(options) {
             override fun populateView(v: View?, chat: Chat?, position: Int) {
-                val ivIcon = v?.find<ImageView>(R.id.imageView_icon)
+                val ivIcon = v?.find<CircleImageView>(R.id.imageView_icon)
                 val tvTitle = v?.find<TextView>(R.id.textView_title)
                 val tvLastMessage = v?.find<TextView>(R.id.textView_lastMessage)
                 val tvSendAt = v?.find<TextView>(R.id.textView_sendAt)
+
+                if (chat!!.pictureUrl.trim().isNotEmpty()) {
+                    Picasso.with(this@MainActivity)
+                            .load(chat.pictureUrl)
+                            .fit()
+                            .centerCrop()
+                            .into(ivIcon)
+                }
 
                 tvTitle?.text = chat?.name
                 if (chat!!.chatMessageList.isNotEmpty()) {
@@ -127,9 +135,8 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
     }
 
     override fun onItemClick(adapterView: AdapterView<*>?, v: View?, position: Int, p3: Long) {
-        val chat: Chat = mAdapter.getItem(position)
         val childId = mAdapter.getRef(position).key
-        startActivity(intentFor<ChatActivity>(Constants.CHAT to chat, Constants.CHILD_ID to childId).singleTop())
+        startActivity(intentFor<ChatActivity>(Constants.CHILD_ID to childId).singleTop())
     }
 
     override fun onItemLongClick(adapterView: AdapterView<*>?, v: View?, position: Int, p3: Long): Boolean {

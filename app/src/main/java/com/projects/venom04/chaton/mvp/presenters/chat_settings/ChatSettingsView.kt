@@ -1,4 +1,4 @@
-package com.projects.venom04.chaton.mvp.presenters.chat_detail
+package com.projects.venom04.chaton.mvp.presenters.chat_settings
 
 import com.google.firebase.database.Query
 import com.projects.venom04.chaton.mvp.presenters.BaseView

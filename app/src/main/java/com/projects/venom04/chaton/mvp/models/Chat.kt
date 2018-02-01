@@ -13,6 +13,7 @@ import kotlin.collections.HashMap
 @Parcelize
 data class Chat(val name: String = "",
                 val description: String = "",
-                val urlIcon: String = "",
+                val pictureUrl: String = "",
+                val coverUrl: String = "",
                 val chatMessageList: HashMap<String, ChatMessage> = HashMap(),
                 val createdAt: Long = Date().time) : Parcelable
