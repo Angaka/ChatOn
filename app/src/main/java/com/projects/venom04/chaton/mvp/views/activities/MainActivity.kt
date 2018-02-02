@@ -1,5 +1,6 @@
 package com.projects.venom04.chaton.mvp.views.activities
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -7,6 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.firebase.ui.database.FirebaseListAdapter
 import com.firebase.ui.database.FirebaseListOptions
 import com.google.firebase.database.Query
@@ -17,7 +20,8 @@ import com.projects.venom04.chaton.mvp.presenters.main.MainView
 import com.projects.venom04.chaton.mvp.views.fragments.AddChatDialogFragment
 import com.projects.venom04.chaton.utils.Constants
 import com.projects.venom04.chaton.utils.DateHelper
-import com.squareup.picasso.Picasso
+import com.projects.venom04.chaton.utils.GlideApp
+import com.projects.venom04.chaton.utils.LoaderHelper
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.*
@@ -32,6 +36,8 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        LoaderHelper.showLoader(this)
 
         mMainPresenter = MainPresenter(this)
         mMainPresenter.loadChats()
@@ -80,15 +86,21 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
                 val tvSendAt = v?.find<TextView>(R.id.textView_sendAt)
 
                 if (chat!!.pictureUrl.trim().isNotEmpty()) {
-                    Picasso.with(this@MainActivity)
-                            .load(chat.pictureUrl)
-                            .fit()
+                    GlideApp.with(applicationContext)
+                            .asBitmap()
                             .centerCrop()
-                            .into(ivIcon)
+                            .load(chat.pictureUrl)
+                            .into(object : SimpleTarget<Bitmap>() {
+                                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                                    ivIcon?.setImageBitmap(resource)
+                                }
+                            })
+                } else {
+                    ivIcon?.setCircleBackgroundColorResource(R.color.colorPrimaryLight)
                 }
 
-                tvTitle?.text = chat?.name
-                if (chat!!.chatMessageList.isNotEmpty()) {
+                tvTitle?.text = chat.name
+                if (chat.chatMessageList.isNotEmpty()) {
                     tvLastMessage?.visibility = TextView.VISIBLE
                     tvSendAt?.visibility = TextView.VISIBLE
 
@@ -111,6 +123,8 @@ class MainActivity : AppCompatActivity(), MainView, View.OnClickListener, AddCha
         listView_chats.adapter = mAdapter
         listView_chats.onItemClickListener = this
         listView_chats.onItemLongClickListener = this
+
+        LoaderHelper.hideLoader()
     }
 
     override fun onAddingChat(name: String) {

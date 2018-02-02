@@ -2,8 +2,6 @@ package com.projects.venom04.chaton.mvp.views.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +11,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -27,8 +27,7 @@ import com.projects.venom04.chaton.mvp.presenters.chat.ChatPresenter
 import com.projects.venom04.chaton.mvp.presenters.chat.ChatView
 import com.projects.venom04.chaton.mvp.views.adapters.ChatHolder
 import com.projects.venom04.chaton.utils.Constants
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
+import com.projects.venom04.chaton.utils.GlideApp
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.startActivityForResult
@@ -36,7 +35,7 @@ import org.jetbrains.anko.startActivityForResult
 /**
  * Created by beau-oudong on 29/01/2018.
  */
-class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener, Target {
+class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener {
 
     private lateinit var mChatPresenter: ChatPresenter
 
@@ -118,9 +117,15 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener, Target
                     supportActionBar?.title = name
 
                     if (coverUrl.trim().isNotEmpty()) {
-                        Picasso.with(this@ChatActivity)
+                        GlideApp.with(applicationContext)
+                                .asDrawable()
                                 .load(coverUrl)
-                                .into(this@ChatActivity)
+                                .fitCenter()
+                                .into(object : SimpleTarget<Drawable>() {
+                                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                                        constraintLayout_chat.background = resource
+                                    }
+                                })
                     }
                 }
             }
@@ -183,16 +188,6 @@ class ChatActivity : AppCompatActivity(), ChatView, View.OnClickListener, Target
                 }
             }
         }
-    }
-
-    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-    }
-
-    override fun onBitmapFailed(errorDrawable: Drawable?) {
-    }
-
-    override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-        constraintLayout_chat.background = BitmapDrawable(resources, bitmap)
     }
 
     companion object {

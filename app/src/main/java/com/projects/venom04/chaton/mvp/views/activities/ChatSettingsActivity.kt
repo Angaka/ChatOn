@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.Query
@@ -18,8 +19,8 @@ import com.projects.venom04.chaton.utils.Constants
 import com.projects.venom04.chaton.utils.Constants.Companion.PICK_COVER
 import com.projects.venom04.chaton.utils.Constants.Companion.PICK_PICTURE
 import com.projects.venom04.chaton.utils.DateHelper
+import com.projects.venom04.chaton.utils.GlideApp
 import com.projects.venom04.chaton.utils.ImageHelper
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_chat_settings.*
 import org.jetbrains.anko.longToast
 
@@ -116,17 +117,17 @@ class ChatSettingsActivity : AppCompatActivity(), ChatSettingsView, View.OnClick
                     textInputLayout_chat_settings_name.editText?.setText(name)
                     textInputLayout_chat_settings_desc.editText?.setText(description)
                     if (coverUrl.trim().isNotEmpty()) {
-                        Picasso.with(this@ChatSettingsActivity)
-                                .load(coverUrl)
-                                .fit()
+                        GlideApp.with(applicationContext)
+                                .asDrawable()
                                 .centerCrop()
+                                .load(coverUrl)
                                 .into(imageView_chat_settings_cover)
                     }
                     if (pictureUrl.trim().isNotEmpty()) {
-                        Picasso.with(this@ChatSettingsActivity)
-                                .load(pictureUrl)
-                                .fit()
+                        GlideApp.with(applicationContext)
+                                .asDrawable()
                                 .centerCrop()
+                                .load(pictureUrl)
                                 .into(imageView_chat_settings_picture)
                     }
                 }
